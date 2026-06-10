@@ -1,0 +1,20 @@
+{
+  "seed": 42,
+  "threshold": 0.03,
+  "weights": {
+    "tfidf": 0.6,
+    "bertweet": 0.2,
+    "mpnet": 0.2
+  },
+  "bertweet": {
+    "model_name": "vinai/bertweet-base",
+    "max_length": 96,
+    "batch_size": 16,
+    "classifier_c": 10.0
+  },
+  "mpnet": {
+    "model_name": "sentence-transformers/all-mpnet-base-v2",
+    "batch_size": 32,
+    "classifier_c": 100.0
+  }
+}
