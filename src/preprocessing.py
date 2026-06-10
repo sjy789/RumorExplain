@@ -1,5 +1,6 @@
 import html
 import re
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -9,6 +10,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 URL_RE = re.compile(r"https?://\S+|www\.\S+")
 MENTION_RE = re.compile(r"@\w+")
 HASHTAG_RE = re.compile(r"#\w+")
+REQUIRED_COLUMNS = {"id", "text", "label", "event"}
 
 
 def normalize_tweet(text):
@@ -22,6 +24,28 @@ def clean_for_word(text):
     text = normalize_tweet(text).replace("'", "")
     text = re.sub(r"[^a-z0-9#_\s]+", " ", text)
     return re.sub(r"\s+", " ", text).strip()
+
+
+def load_dataset(path):
+    path = Path(path)
+    frame = pd.read_csv(path)
+    missing_columns = REQUIRED_COLUMNS.difference(frame.columns)
+    if missing_columns:
+        names = ", ".join(sorted(missing_columns))
+        raise ValueError(f"{path} is missing required columns: {names}")
+    if frame.empty:
+        raise ValueError(f"{path} is empty")
+    if frame[list(REQUIRED_COLUMNS)].isna().any().any():
+        raise ValueError(f"{path} contains missing values")
+
+    labels = set(frame["label"].unique())
+    if not labels.issubset({0, 1}) or len(labels) != 2:
+        raise ValueError(f"{path} must contain both binary labels 0 and 1")
+
+    result = frame.copy()
+    result["text"] = result["text"].astype(str)
+    result["label"] = result["label"].astype(int)
+    return result
 
 
 def to_text_series(values):
