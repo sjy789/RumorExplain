@@ -3,5 +3,8 @@ numpy
 scipy
 scikit-learn
 matplotlib
-seaborn
 joblib
+torch
+transformers
+sentence-transformers
+emoji==0.6.0
