@@ -1,9 +1,6 @@
-# Experiment Summary
+# 实验结果摘要
 
-The final submitted workflow is fixed and does not repeat this search. 
-The complete exploration covered 274 model, parameter, threshold, and fusion
-combinations. 
-The table below selects representative results from the main model families rather than listing every experiment:
+最终提交的训练流程使用已经确定的模型和参数，不会在运行时重复进行大规模搜索。但是我们在实验阶段一共完成了 274 种模型、参数、阈值与融合组合。下表从主要模型类别中选取具有代表性的结果进行展示，并非完整实验记录，便于更加清晰地展示：
 
 | Model family | Representative validation accuracy |
 |---|---:|
@@ -18,5 +15,4 @@ The table below selects representative results from the main model families rath
 | Fine-tuned DeBERTa-v3-small | 0.8204 |
 | Fixed TF-IDF/BERTweet/MPNet fusion | **0.8953** |
 
-The selected fusion uses weights `0.60`, `0.20`, and `0.20`.
-The final decisionthreshold is fixed at `0.03`.
+最终选择的融合方案权重分别为 `0.60`、`0.20` 和 `0.20`，分类阈值固定为 `0.03`。

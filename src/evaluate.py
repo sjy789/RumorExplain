@@ -99,7 +99,6 @@ def evaluate(args):
         ascending=False,
     )
     args.results_dir.mkdir(parents=True, exist_ok=True)
-    comparison.to_csv(args.results_dir / "model_comparison.csv", index=False)
 
     final_name = "final_weighted_fusion"
     final_predictions = predictions_by_model[final_name]

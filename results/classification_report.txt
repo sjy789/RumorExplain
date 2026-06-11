@@ -1,0 +1,8 @@
+              precision    recall  f1-score   support
+
+   non-rumor     0.8898    0.9292    0.9091       226
+       rumor     0.9030    0.8514    0.8765       175
+
+    accuracy                         0.8953       401
+   macro avg     0.8964    0.8903    0.8928       401
+weighted avg     0.8956    0.8953    0.8949       401

@@ -3,7 +3,9 @@ __pycache__/
 .venv/
 venv/
 .env
+.env.*
+!.env.example
 data/
-models/
-results/
+models/*
+!models/best_model.joblib
 .cache/
