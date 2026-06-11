@@ -76,8 +76,45 @@ evaluation.
 
 ## Predict
 
+The classifier always determines the label. The explanation module sends the
+fixed label and model evidence to the SJTU large-language-model API, which
+turns that evidence into a short Chinese explanation. The LLM cannot change
+the classification result.
+
+Apply for an API key through the SJTU service, connect to the campus network
+or SJTU VPN, and set these variables in the same terminal used to run Python:
+
+```powershell
+$env:SJTU_API_KEY="your_api_key"
+$env:SJTU_BASE_URL="https://models.sjtu.edu.cn/api/v1"
+$env:SJTU_LLM_MODEL="deepseek-chat"
+```
+
+Do not write the real API key into source code or commit it to GitHub. Check
+the API connection with:
+
+```bash
+python src/llm_explainer.py
+```
+
+Run classification and explanation with:
+
 ```bash
 python src/predict.py "Breaking news example text"
+```
+
+Example output:
+
+```text
+检测结果：1（谣言）
+判断依据：该文本包含……，这些语言特征与模型判断方向一致……
+```
+
+If the API is unavailable, prediction still works and automatically uses a
+local evidence-based explanation. To force offline explanation:
+
+```bash
+python src/predict.py --no-llm "Breaking news example text"
 ```
 
 Python usage:
@@ -88,4 +125,11 @@ from src.predict import RumourDetectClass
 detector = RumourDetectClass("models/best_model.joblib")
 label = detector.classify("Breaking news example text")
 explanation = detector.explain("Breaking news example text")
+result = detector.predict_with_explanation("Breaking news example text")
 ```
+
+`result` contains `label`, `explanation`, and `explanation_source`. When the
+SJTU API is used, `explanation_source` records the actual model name, such as
+`deepseek-chat`; otherwise it is `local_fallback`. API responses are cached
+under `.cache/` to reduce repeated requests. The client also respects the
+configured limit of 10 requests per minute.

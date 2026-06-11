@@ -1,7 +1,9 @@
 # Experiment Summary
 
-The final submitted workflow is fixed and does not repeat this search. The
-following model families were explored before selecting the final design:
+The final submitted workflow is fixed and does not repeat this search. 
+The complete exploration covered 274 model, parameter, threshold, and fusion
+combinations. 
+The table below selects representative results from the main model families rather than listing every experiment:
 
 | Model family | Representative validation accuracy |
 |---|---:|
@@ -16,6 +18,5 @@ following model families were explored before selecting the final design:
 | Fine-tuned DeBERTa-v3-small | 0.8204 |
 | Fixed TF-IDF/BERTweet/MPNet fusion | **0.8953** |
 
-The selected fusion uses weights `0.60`, `0.20`, and `0.20`. Component scores
-are standardized with statistics calculated on `train.csv`. The final decision
-threshold is fixed at `0.03`.
+The selected fusion uses weights `0.60`, `0.20`, and `0.20`.
+The final decisionthreshold is fixed at `0.03`.
